@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { actions, isInputError } from "astro:actions";
 
-const result = Astro.getActionResult(actions.nameForm);
+const result = Astro.getActionResult(actions.setName);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 if (result && !result.error) {
@@ -11,7 +11,7 @@ if (result && !result.error) {
 ---
 
 <Layout>
-    <form method="post" action={actions.nameForm}>
+    <form method="post" action={actions.setName}>
         <label>
             Name
             <input required type="text" name="name" />

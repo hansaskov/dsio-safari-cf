@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { actions } from "astro:actions";
+
+const result = await Astro.session?.get("user");
+---
+
+<Layout>
+    {result?.data && <p>Welcome {result.data.name}</p>}
+
+    <form method="post" action={actions.setName}>
+        <label>
+            Name
+            <input required type="text" name="name" />
+        </label>
+        <button>Submit</button>
+    </form>
+</Layout>

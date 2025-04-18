@@ -2,13 +2,14 @@ import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 
 export const server = {
-  nameForm: defineAction({
+  setName: defineAction({
     accept: "form",
     input: z.object({
-      name: z.string().max(10),
+      name: z.string().max(24),
     }),
-    handler: async ({ name }) => {
-      return { name };
+    handler: async (input, context) => {
+      context.session?.set("name", {name: input.name});
+      return { name: input.name };
     },
   }),
 
