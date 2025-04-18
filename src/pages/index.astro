@@ -1,11 +1,22 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import { actions, isInputError } from "astro:actions";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const result = Astro.getActionResult(actions.nameForm);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
+if (result && !result.error) {
+    return Astro.redirect(`/wait`);
+}
 ---
 
 <Layout>
-	<Welcome />
+    <form method="post" action={actions.nameForm}>
+        <label>
+            Name
+            <input required type="text" name="name" />
+        </label>
+        {inputErrors.name && <p id="error">{inputErrors.name.join(",")}</p>}
+        <button>Submit</button>
+    </form>
 </Layout>
