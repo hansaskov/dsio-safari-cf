@@ -8,7 +8,7 @@ export const server = {
       name: z.string().max(24),
     }),
     handler: async (input, context) => {
-      context.session?.set("name", {name: input.name});
+      context.session?.set("name", input.name);
       return { name: input.name };
     },
   }),

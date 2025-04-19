@@ -1,5 +1,3 @@
-import type { SerializedActionResult } from "astro:actions";
-
 type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
 
 declare namespace App {
